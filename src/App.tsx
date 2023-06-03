@@ -1,11 +1,14 @@
+
 import LineChart from "./components/LineChart";
 import Navbar from "./components/Navbar";
 import { useEffect, useState } from "react";
-// import { Devices } from "./components/Devices";
 import "./styles/App.css";
+import { Devices } from "./components/Devices";
+import AddDeviceModal from "./components/AddDeviceModal";
 
 function App() {
   const [devices, setDevices] = useState();
+  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
 
@@ -14,11 +17,20 @@ function App() {
   async function handleDeviceFetch() {
     
   }
+
+  function handleModalOpen() {
+    setModalIsVisible(true);
+  }
+
   return (
-    <div>
+    <div className="app-container">
       <Navbar />
       <LineChart />
-      {/* <Devices /> */}
+      <AddDeviceModal
+        modalIsVisible={modalIsVisible}
+        setModalIsVisible={setModalIsVisible}
+      />
+      <button onClick={handleModalOpen}>Add Device</button>
     </div>
   );
 }

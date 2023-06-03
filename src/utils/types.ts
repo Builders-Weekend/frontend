@@ -12,9 +12,10 @@ type QueuedJob = {
     cost: number;
 }
 
-type weatherApiResponse = {
+type WeatherApiResponse = {
     forecast: Forecast
 }
+
 type Forecast = {
     forecastday: ForecastDay[]
 }
@@ -36,4 +37,4 @@ type PricingData = {
     valid_to: string
 }
 
-export type { Device, weatherApiResponse, Forecast, ForecastDay, Hour, PricingData, QueuedJob };
+export type { Device, WeatherApiResponse, Forecast, ForecastDay, Hour, PricingData, QueuedJob };

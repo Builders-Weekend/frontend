@@ -4,7 +4,10 @@ import "../styles/JobQueue.css";
 
 export default function JobQueue(devices: Device[]) {
   const [currentQueue, setCurrentQueue] = useState<QueuedJob[]>([]);
+
   return (
-    <div>JobQueue</div>
+    <>
+      <div>JobQueue</div>
+    </>
   )
 }; 
