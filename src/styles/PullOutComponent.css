@@ -17,7 +17,11 @@
 }
 
 .content {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fbfbfc;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pullout.open {
