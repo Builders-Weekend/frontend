@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { WeatherApiResponse, Hour } from "../utils/types";
 import "../styles/Widget.css";
-// const sunIcon = require("../logos/sunicon.svg");
-// const windIcon = require("../logos/wind-turbine-icon.svg");
 
 
 export const GreenEnergyWidget = () => {
@@ -38,7 +36,7 @@ export const GreenEnergyWidget = () => {
         fetchWeatherData();
         console.log("HOURLY DATA: ", hourlyData);
     }, []);
-    
+
     useEffect(() => {
         hourlyData.map((hour: Hour) => isRenewable(hour));
         isGeneratingArray.reverse();
