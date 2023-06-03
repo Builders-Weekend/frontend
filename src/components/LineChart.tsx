@@ -22,31 +22,69 @@ ChartJS.register(
 );
 
 const data: ChartData<"line", number[], unknown> = {
-  labels: ["January", "February", "March", "April", "May", "June"],
+  // Time data goes here
+  labels: [
+    "12:00 AM",
+    "01:00 AM",
+    "02:00 AM",
+    "03:00 AM",
+    "04:00 AM",
+    "05:00 AM",
+    "06:00 AM",
+    "07:00 AM",
+    "08:00 AM",
+    "09:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "01:00 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
+    "05:00 PM",
+    "06:00 PM",
+    "07:00 PM",
+    "08:00 PM",
+    "09:00 PM",
+    "10:00 PM",
+    "11:00 PM",
+  ],
+  // Energy Usage data goes here
   datasets: [
     {
-      label: "Dataset 1",
-      data: [0, 10, 5, 2, 20, 30],
-      backgroundColor: "aqua",
+      label: "Energy Usage",
+      // Energy Usage data goes here
+      data: [2000, 4000, 6000, 8000, 10000, 2000, 4000],
+      backgroundColor: "magenta",
       borderColor: "black",
       pointBorderColor: "black",
       fill: true,
       tension: 0.4,
     },
+    {
+      label: "Energy Costs",
+      // Energy Costs data goes here
+      data: [1000, 5000, 2000, 2000, 3000],
+      backgroundColor: "green",
+      borderColor: "black",
+      pointBorderColor: "black",
+      fill: true,
+      tension: 0.4,
+    }
   ],
 };
 
-const options: ChartOptions<'line'> = {
+const options: ChartOptions<"line"> = {
   responsive: true,
   scales: {
     x: {
-      type: 'category',
+      type: "category",
     },
     y: {
       beginAtZero: true,
       title: {
         display: true,
-        text: "Value"
+        text: "Price (JPY)",
       },
       ticks: {
         stepSize: 1,
