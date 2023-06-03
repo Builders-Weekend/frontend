@@ -1,4 +1,4 @@
-.container {
-  width: 600px;
-  height: 400px;
+.app-container {
+  width: 100vw;
+  height: 100vh;
 }
