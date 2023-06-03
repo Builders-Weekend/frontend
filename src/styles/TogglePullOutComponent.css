@@ -8,12 +8,16 @@
 
 .button {
   display: flex;
+  background-color: #100030;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
   justify-content: center;
   align-items: center;
   border: none;
   cursor: pointer;
   outline: none;
-  transition: color 0.2s;
+  transition: color 0.5s;
 }
 
 .button svg {
@@ -22,13 +26,13 @@
 }
 
 .button.inactive {
-  color: magenta;
+  color: #fbfbfc;
   transform: translateX(0);
   transition: transform 0.5s ease-in-out;
 }
 
 .button.active {
-  color: grey;
+  color: #c43fcf;
   transform: translateX(300px);
   transition: transform 0.5s ease-in-out;
 }
