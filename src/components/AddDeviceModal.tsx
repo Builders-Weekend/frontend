@@ -15,23 +15,40 @@ function AddDeviceModal({
   const [consumption, setConsumption] = useState<number>(0);
   const [isBattery, setIsBattery] = useState<boolean>(false);
   const [chargeLevel, setChargeLevel] = useState<number>(0);
+  const [displaySuccessMessage, setDisplaySuccessMessage] =
+    useState<boolean>(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
-      await axios.post("http://localhost:4000/devices", {
+      await axios.post("http://localhost:4000/api/devices", {
         name: name,
         consumption: consumption,
         isBattery: isBattery,
         chargeLevel: chargeLevel,
       });
       console.log("Form submitted!");
+      handleDisplaySuccessMessage();
+
+      // Reset form
+      setName("");
+      setConsumption(0);
+      setIsBattery(false);
+      setChargeLevel(0);
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
+
+  const handleDisplaySuccessMessage = () => {
+    setDisplaySuccessMessage(true);
+
+    setTimeout(() => {
+      setDisplaySuccessMessage(false);
+    }, 5000);
+  };
 
   const handleModalClose = () => {
     setModalIsVisible(false);
@@ -44,13 +61,18 @@ function AddDeviceModal({
           <div className="modal-container">
             <div className="modal-content">
               <h1>Add Device</h1>
-              <form onSubmit={handleSubmit} className="modal-form">
+              <form
+                onSubmit={handleSubmit}
+                id="add-device-form"
+                className="modal-form"
+              >
                 <label htmlFor="input-name">Name</label>
                 <input
                   required
                   type="text"
                   inputMode="text"
                   id="input-name"
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
 
@@ -60,6 +82,7 @@ function AddDeviceModal({
                   type="number"
                   inputMode="numeric"
                   id="input-consumption"
+                  value={consumption}
                   onChange={(e) => setConsumption(e.target.valueAsNumber)}
                 />
 
@@ -67,6 +90,7 @@ function AddDeviceModal({
                 <input
                   type="checkbox"
                   id="input-battery"
+                  checked={isBattery}
                   onChange={(e) => setIsBattery(e.target.checked)}
                 />
 
@@ -76,11 +100,13 @@ function AddDeviceModal({
                   type="number"
                   inputMode="numeric"
                   id="input-charge-level"
+                  value={chargeLevel}
                   onChange={(e) => setChargeLevel(e.target.valueAsNumber)}
                 />
 
                 <input type="submit" value="Submit" />
               </form>
+              {displaySuccessMessage && "Device added successfully!"}
             </div>
             <button onClick={handleModalClose}>Close Modal</button>
           </div>
