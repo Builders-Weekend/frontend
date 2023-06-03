@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LineChart from "./components/LineChart";
-import PopupModal from "./components/PopupModal";
+import AddDeviceModal from "./components/AddDeviceModal";
 import "./styles/App.css";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="app-container">
       <LineChart />
-      <PopupModal
+      <AddDeviceModal
         modalIsVisible={modalIsVisible}
         setModalIsVisible={setModalIsVisible}
       />

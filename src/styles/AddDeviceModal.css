@@ -23,4 +23,13 @@
 
 .modal-content {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
 }
