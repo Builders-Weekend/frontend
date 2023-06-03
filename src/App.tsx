@@ -17,7 +17,7 @@ function App() {
         modalIsVisible={modalIsVisible}
         setModalIsVisible={setModalIsVisible}
       />
-      <button onClick={handleModalOpen}>Open Modal</button>
+      <button onClick={handleModalOpen}>Add Device</button>
     </div>
   );
 }

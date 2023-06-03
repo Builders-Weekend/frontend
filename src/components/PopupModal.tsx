@@ -16,7 +16,10 @@ function PopupModal({ modalIsVisible, setModalIsVisible }: IPopupModalProps) {
         <div className="container">
           <div className="modal-container">
             <div className="modal-content">
-              <p>Modal text goes here</p>
+              <h1>Add Device</h1>
+              <form>
+                
+              </form>
               <button onClick={handleModalClose}>Close Modal</button>
             </div>
           </div>
