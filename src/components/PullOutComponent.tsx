@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import "../styles/PullOutComponent.css";
 
-function PullOutComponent() {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+interface IPullOutComponentProps {
+  isOpen: boolean;
+}
 
-    const togglePullOut = () => {
-        setIsOpen(!isOpen);
-    }
-
-    return (
-        <div className="container">
-            <div className={`pullout ${isOpen ? "open" : ""}`}>
-                <button onClick={togglePullOut}>Toggle</button>
-                <div className="content">
-                    <p>Content goes here</p>
-                </div>
-            </div>
+function PullOutComponent({ isOpen }: IPullOutComponentProps) {
+  return (
+    <div className="container">
+      <div className={`pullout ${isOpen ? "open" : ""}`}>
+        <div className="content">
+          <p>Content goes here</p>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 export default PullOutComponent;
