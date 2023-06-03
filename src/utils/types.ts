@@ -5,7 +5,7 @@ type Device = {
     chargeLevel?: number;
 }
 
-type weatherApiResponse = {
+type WeatherApiResponse = {
     forecast: Forecast
 }
 type Forecast = {
@@ -29,4 +29,4 @@ type PricingData = {
     valid_to: string
 }
 
-export type { Device, weatherApiResponse, Forecast, ForecastDay, Hour, PricingData };
+export type { Device, WeatherApiResponse, Forecast, ForecastDay, Hour, PricingData };
