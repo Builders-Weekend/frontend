@@ -23,7 +23,7 @@ export const Devices = () => {
         <div>
             <h1>Devices</h1>
             {devices.map((device) => (
-                <div key={device.name}>
+                <div className="device-card" key={device.name}>
                     <h2>{device.name}</h2>
                     <p>Consumption: {device.consumption}</p>
                 </div>
