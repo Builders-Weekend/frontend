@@ -1,0 +1,34 @@
+.button-container {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s;
+}
+
+.button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.button.inactive {
+  color: magenta;
+  transform: translateX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.button.active {
+  color: grey;
+  transform: translateX(300px);
+  transition: transform 0.5s ease-in-out;
+}

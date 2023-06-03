@@ -11,8 +11,8 @@
   overflow: hidden;
   position: fixed;
   top: 0;
-  right: -300px;
-  transition: right 0.5s ease-in-out;
+  left: -300px;
+  transition: left 0.5s ease-in-out;
   z-index: 999;
 }
 
@@ -21,5 +21,5 @@
 }
 
 .pullout.open {
-  right: 0;
+  left: 0;
 }
