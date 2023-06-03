@@ -96,7 +96,7 @@ const options: ChartOptions<"line"> = {
 const LineChart = () => {
   return (
     <div className="line-chart-container">
-      <Line data={data} options={options} />
+      <Line id="line-chart" data={data} options={options} />
     </div>
   );
 };
