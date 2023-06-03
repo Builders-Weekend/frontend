@@ -1,5 +1,6 @@
 import LineChart from "./components/LineChart";
 import { Devices } from "./components/Devices";
+import { GreenEnergyWidget } from "./components/GreenEnergyWidget";
 import "./styles/App.css";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div>
       <LineChart />
       <Devices />
+      <GreenEnergyWidget />
     </div>
   );
 }
