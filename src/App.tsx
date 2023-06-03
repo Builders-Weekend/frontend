@@ -1,27 +1,45 @@
 
 import LineChart from "./components/LineChart";
 import Navbar from "./components/Navbar";
-import { useEffect, useState } from "react";
-import "./styles/App.css";
-import { Devices } from "./components/Devices";
+import JobQueue  from "./components/JobQueue";
 import AddDeviceModal from "./components/AddDeviceModal";
+import { useEffect, useState } from "react";
+import { Device, PricingData } from "./utils/types";
+import axios from "axios";
+import "./styles/App.css";
 
 function App() {
-  const [devices, setDevices] = useState();
+  const [devices, setDevices] = useState<Device[]>([]);
   const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
+  const [pricingData, setPricingData] = useState<PricingData[]>([]);
 
+  
   useEffect(() => {
-
-  })
-
-  async function handleDeviceFetch() {
-    
-  }
-
+    fetchDeviceData();
+    fetchPricingData();
+  }, []);
+  
   function handleModalOpen() {
     setModalIsVisible(true);
   }
+  
+  async function fetchDeviceData() {
+    try {
+      const response = await axios.get("http://localhost:4000/api/devices");
+      setDevices(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
+  async function fetchPricingData() {
+    try {
+      const response = await axios.get("http://localhost:4000/api/prices");
+      setPricingData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div className="app-container">
       <Navbar />
@@ -29,6 +47,10 @@ function App() {
       <AddDeviceModal
         modalIsVisible={modalIsVisible}
         setModalIsVisible={setModalIsVisible}
+      />
+      <JobQueue 
+        devices={devices}
+        prices={pricingData}
       />
       <button onClick={handleModalOpen}>Add Device</button>
     </div>
