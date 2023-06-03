@@ -1,30 +1,19 @@
-import Chart from 'chart.js/auto';
-import React from 'react';
+import React from "react";
+import { Line } from "react-chartjs-2";
+import { ChartData } from "chart.js";
+import "../styles/LineChart.css";
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June, July']
-
-const data = {
-    labels: labels,
-    datasets: [{
-        label: 'Dataset 1',
-        data: [0, 10, 5, 2, 20, 30],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }],
+interface ILineChartProps {
+  data: ChartData<"line", number[], unknown>;
+  options?: any;
 }
 
-const config = {
-    type: 'line',
-    data: data,
-}
+const LineChart: React.FC<ILineChartProps> = ({ data, options }) => {
+  return (
+    <div className="chart-container">
+      <Line data={data} options={options} />
+    </div>
+  );
+};
 
-function LineChart() {
-    return (
-        <div>
-            
-        </div>
-    )
-}
-
-export default function LineChart();
+export default LineChart;
