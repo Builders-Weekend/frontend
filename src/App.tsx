@@ -1,5 +1,11 @@
+import Chart from "./components/LineChart";
+
 function App() {
-  return <p>Hello World!</p>;
+  return (
+    <div className="container">
+      <Chart />
+    </div>
+  );
 }
 
 export default App;
