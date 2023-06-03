@@ -5,6 +5,13 @@ type Device = {
     chargeLevel?: number;
 }
 
+type QueuedJob = {
+    device: Device;
+    start: number;
+    end: number;
+    cost: number;
+}
+
 type weatherApiResponse = {
     forecast: Forecast
 }
@@ -29,4 +36,4 @@ type PricingData = {
     valid_to: string
 }
 
-export type { Device, weatherApiResponse, Forecast, ForecastDay, Hour, PricingData };
+export type { Device, weatherApiResponse, Forecast, ForecastDay, Hour, PricingData, QueuedJob };
