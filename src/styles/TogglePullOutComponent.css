@@ -33,6 +33,6 @@
 
 .button.active {
   color: #c43fcf;
-  transform: translateX(300px);
+  transform: translateX(30vw);
   transition: transform 0.5s ease-in-out;
 }
