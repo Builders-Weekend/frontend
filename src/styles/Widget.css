@@ -1,0 +1,8 @@
+.sun-logo {
+    fill: rgb(6, 255, 6);
+    background-color: #180048;
+}
+.sun-off-logo {
+    background-color: #180048;
+    fill: grey;
+}
