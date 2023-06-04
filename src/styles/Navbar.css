@@ -6,5 +6,9 @@
   /* Remove whitespace */
   margin: 0;
   padding: 0;
-}
 
+  /* Center the logo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
