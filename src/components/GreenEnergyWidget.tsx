@@ -1,25 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { WeatherApiResponse, Hour } from "../utils/types";
+import { WeatherApiResponse, Hour, QueuedJob, PricingData } from "../utils/types";
 import "../styles/Widget.css";
 import PlayButton from "./PlayButton";
 
 interface IGreenEnergyWidget {
     currentSimTime: number;
     setCurrentSimTime: React.Dispatch<React.SetStateAction<number>>;
-    totalGreenHours: number;
-    setTotalGreenHours: React.Dispatch<React.SetStateAction<number>>;
-    totalNonGreenHours: number;
-    setTotalNonGreenHours: React.Dispatch<React.SetStateAction<number>>;
-    totalCost: number;
-    setTotalCost: React.Dispatch<React.SetStateAction<number>>;
+    // totalGreenHours: number;
+    // setTotalGreenHours: React.Dispatch<React.SetStateAction<number>>;
+    // totalNonGreenHours: number;
+    // setTotalNonGreenHours: React.Dispatch<React.SetStateAction<number>>;
+    // totalCost: number;
+    // setTotalCost: React.Dispatch<React.SetStateAction<number>>;
+    jobQueue: QueuedJob[];
+    prices: PricingData[];
+    setJobQueue: React.Dispatch<React.SetStateAction<QueuedJob[]>>;
 
 }
 
-export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, totalGreenHours, setTotalGreenHours, totalNonGreenHours, setTotalNonGreenHours, totalCost, setTotalCost }: IGreenEnergyWidget) => {
-    const [solarGenerating, setSolarGenerating] = useState<boolean>(true);
+export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue, prices, setJobQueue}: IGreenEnergyWidget) => {
     const [hourlyData, setHourlyData] = useState<Hour[]>([]);
     const isGeneratingArray: boolean[] = [];
+    const [totalGreenHours, setTotalGreenHours] = useState<number>(0);
+    const [totalNonGreenHours, setTotalNonGreenHours] = useState<number>(0);
+    const [totalCost, setTotalCost] = useState<number>(0);
 
     const fetchWeatherData = async () => {
         try {
@@ -31,18 +36,61 @@ export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, totalGree
         }
     };
 
+    const jobTimeCheck = (jobsList: QueuedJob[], currentSimTime: number, prices: PricingData[]) => {
+        // console.log("PRICES OBJECT", prices[currentSimTime - 1]);
+        
+        const currentPriceTime = extractTimeFromString(prices[currentSimTime - 1].valid_from);
+        console.log("JOBS LIST", currentPriceTime);
+        if (formatTime(currentPriceTime) === formatTime(jobsList[0].start)) {
+            setTotalCost((totalCost) => totalCost + jobsList[0].cost);
+            const newJobList = jobsList.slice(1);
+            setJobQueue(newJobList);
+            const currentWeatherIndex = Math.floor(currentSimTime % 2);
+            if (isRenewable(hourlyData[currentWeatherIndex])) {
+                setTotalGreenHours((totalGreenHours) => totalGreenHours + 1);
+            } else {
+                setTotalNonGreenHours((totalNonGreenHours) => totalNonGreenHours + 1);
+            }
+        }
+    }
+
+
     // function to control when the light turns on or not - signifying renewable energy is being used.
     const isRenewable = (hourlyData: Hour) => {
         if (hourlyData) {
             if (hourlyData.windKph < 14 || hourlyData.windKph > 90) {
-                isGeneratingArray.push(true);
+                return true;
             } else if (hourlyData.uvIndex > 2) {
-                isGeneratingArray.push(true);
+                return true;
             } else {
-                isGeneratingArray.push(false);
+                return false;
             }
         }
     };
+
+    const formatTime = (time: string) => {
+    const timestampStr: string = time;
+      const currentDate: Date = new Date("2023-06-02");
+      const currentDateString: string = currentDate.toISOString().slice(0, 10);
+      const timestampWithDate: string = `${currentDateString}T${timestampStr}:00`;
+      const datetimeObj: Date = new Date(timestampWithDate);
+    
+      const unixTimestamp: number = Math.floor(datetimeObj.getTime() / 1000);
+      return unixTimestamp;
+    };
+
+    type IsoDateString = string;
+
+    function extractTimeFromString(isoString: IsoDateString): string {
+        const date = new Date(isoString);
+        const time = date.toLocaleTimeString('en', {
+          timeStyle: 'short',
+          hour12: false,
+          timeZone: 'UTC',
+        });
+      
+        return time;
+      }
 
     const handleReset = () => {
         setCurrentSimTime(0);
@@ -59,10 +107,21 @@ export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, totalGree
         console.log(isGeneratingArray)
     }, [hourlyData]);
 
+    useEffect(() => {
+        if (currentSimTime && jobQueue.length > 0 && prices) {
+            jobTimeCheck(jobQueue, currentSimTime, prices);
+        }
+    }, [currentSimTime]);
+
     return (
         <div>
             <h1>Green Energy Widget</h1>
-            <svg className={solarGenerating ? "sun-logo" : "sun-off-logo"} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px"><g><path d="M25,35c-5.514,0-10-4.486-10-10c0-5.514,4.486-10,10-10c5.514,0,10,4.486,10,10C35,30.514,30.514,35,25,35z"/></g><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="25" y1="45" x2="25" y2="39"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="25" y1="11" x2="25" y2="5"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="5" y1="25" x2="11" y2="25"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="39" y1="25" x2="45" y2="25"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="10.858" y1="39.143" x2="15.101" y2="34.9"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="34.898" y1="15.102" x2="39.143" y2="10.858"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="10.858" y1="10.858" x2="15.101" y2="15.102"/><line fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="34.898" y1="34.9" x2="39.143" y2="39.143"/></svg>
+            <h2>Total Cost</h2>
+            {totalCost}
+            <h2>Total Green Hours</h2>
+            {totalGreenHours}
+            <h2>Total Non Green Hours</h2>
+            {totalNonGreenHours}
             {currentSimTime < 48 ? (
                 <>
                     <PlayButton 

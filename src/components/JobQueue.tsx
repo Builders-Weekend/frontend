@@ -3,11 +3,17 @@ import { Device, QueuedJob, PricingData } from "../utils/types";
 import "../styles/JobQueue.css";
 
 interface IJobQueue {
-  devices: Device[];
-  prices: PricingData[];
+  devices: Device[]
+  prices: PricingData[]
+  setJobQueue: React.Dispatch<React.SetStateAction<QueuedJob[]>>
 }
 
-export default function JobQueue({ devices, prices }: IJobQueue) {
+export default function JobQueue({
+  devices,
+  prices,
+  setJobQueue
+}: IJobQueue) {
+
   const [currentQueue, setCurrentQueue] = useState<QueuedJob[]>([]);
   const [addJob, setAddJob] = useState<boolean>(false);
 
@@ -59,6 +65,7 @@ export default function JobQueue({ devices, prices }: IJobQueue) {
     };
     const newQueue = [...currentQueue, newJob];
     setCurrentQueue(newQueue);
+    setJobQueue(newQueue);
     setAddJob(!addJob);
   };
 
@@ -81,6 +88,7 @@ export default function JobQueue({ devices, prices }: IJobQueue) {
 
       return unixTimestamp === startTime;
     });
+
     const pricingArray = newPrices.slice(
       indexOfFirstIncrement,
       indexOfFirstIncrement + halfHourIncrements
