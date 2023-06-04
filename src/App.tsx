@@ -2,7 +2,7 @@ import LineChart from "./components/LineChart";
 import Navbar from "./components/Navbar";
 import JobQueue from "./components/JobQueue";
 import { useEffect, useState } from "react";
-import { Device, PricingData } from "./utils/types";
+import { Device, PricingData, QueuedJob } from "./utils/types";
 import axios from "axios";
 import "./styles/App.css";
 import TogglePullOutComponent from "./components/TogglePullOutComponent";
@@ -12,6 +12,8 @@ function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [devices, setDevices] = useState<Device[]>([]);
   const [pricingData, setPricingData] = useState<PricingData[]>([]);
+  const [jobQueue, setJobQueue] = useState<QueuedJob[]>([]);
+  
 
   useEffect(() => {
     fetchDeviceData();
@@ -39,7 +41,7 @@ function App() {
     <div className="app-container">
       <Navbar />
       <LineChart />
-      <JobQueue devices={devices} prices={pricingData} />
+      <JobQueue devices={devices} prices={pricingData} setJobQueue={setJobQueue} />
       <PullOutComponent devices={devices} setDevices={setDevices} isOpen={isOpen} />
       <TogglePullOutComponent setIsOpen={setIsOpen} isOpen={isOpen} />
     </div>

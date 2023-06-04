@@ -5,11 +5,13 @@ import "../styles/JobQueue.css";
 interface IJobQueue {
   devices: Device[]
   prices: PricingData[]
+  setJobQueue: React.Dispatch<React.SetStateAction<QueuedJob[]>>
 }
 
 export default function JobQueue({
   devices,
-  prices
+  prices,
+  setJobQueue
 }: IJobQueue) {
   const [currentQueue, setCurrentQueue] = useState<QueuedJob[]>([]);
   const [addJob, setAddJob] = useState<boolean>(false);
@@ -53,6 +55,7 @@ export default function JobQueue({
     };
     const newQueue = [...currentQueue, newJob];
     setCurrentQueue(newQueue);
+    setJobQueue(newQueue);
     setAddJob(!addJob);
   };
 
