@@ -1,14 +1,15 @@
 type Device = {
     name: string;
-    consumption: number;
+    consumptionPerHour: number;
     isBattery?: boolean;
-    chargeLevel?: number;
+    currentChargeLevel?: number;
+    maxChargeVal?: number;
 }
 
 type QueuedJob = {
     device: Device;
-    start: number;
-    end: number;
+    start: string;
+    end: string;
     cost: number;
 }
 
