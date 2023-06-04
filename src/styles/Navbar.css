@@ -2,6 +2,13 @@
   background-color: #100030;
   width: 100vw;
   height: 15vh;
-  margin: auto;
-}
 
+  /* Remove whitespace */
+  margin: 0;
+  padding: 0;
+
+  /* Center the logo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

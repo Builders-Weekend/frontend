@@ -1,42 +1,68 @@
-.job-queue-container {
-  width: 100vw;
-  height: 40vh;
-  background-color: orange;
-}
-
-/* Grid.css */
-/* Grid.css */
-/* .grid-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 1rem;
-  align-items: center;
-  grid-auto-rows: minmax(30px, auto);
-}
-
-.grid-header {
-  font-weight: bold;
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.grid-item {
-  text-align: center;
-  padding: 0.5rem;
-} */
-
 .grid-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 1rem;
-  align-items: center;
-  grid-auto-rows: minmax(30px, auto);
+  grid-gap: 10px;
+  background-color: #180048;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.grid-header, .grid-item {
+.grid-header {
+  background-color: #fbfbfb;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
   text-align: center;
-  padding: 0.5rem;
+  font-weight: bold;
 }
 
+.grid-item {
+  background-color: #fbfbfb;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+}
 
+.queue-form-container {
+  grid-column: 1 / span 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
 
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.queue-submit-button {
+  margin-top: 8px;
+  background-color: #bdf1ff;
+  transition: background-color 0.2s;
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.queue-submit-button:hover {
+  background-color: #5ee9f3;
+}
