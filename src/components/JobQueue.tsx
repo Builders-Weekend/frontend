@@ -140,7 +140,7 @@ export default function JobQueue({
   return (
     <>
       <div className="grid-container">
-        <div className="grid-header" style={{ gridColumn: "1" }}>
+        {/* <div className="grid-header" style={{ gridColumn: "1" }}>
           Device
         </div>
         <div className="grid-header" style={{ gridColumn: "2" }}>
@@ -154,7 +154,7 @@ export default function JobQueue({
         </div>
         <div className="grid-header" style={{ gridColumn: "5" }}>
           Device Charge Level
-        </div>
+        </div> */}
         {currentQueue.map((job: QueuedJob, index: number) => {
           const row = index + 2;
           return (

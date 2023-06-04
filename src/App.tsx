@@ -15,6 +15,7 @@ function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [devices, setDevices] = useState<Device[]>([]);
   const [pricingData, setPricingData] = useState<PricingData[]>([]);
+  const [prices, setPrices] = useState<number[]>([]);
   const [jobQueue, setJobQueue] = useState<QueuedJob[]>([]);
   
   const [currentSimTime, setCurrentSimTime] = useState<number>(0);
@@ -49,6 +50,7 @@ function App() {
         currentSimTime={currentSimTime}
         setCurrentSimTime={setCurrentSimTime}
         prices={pricingData}
+        pricesArr={prices}
       />
       <JobQueue devices={devices} prices={pricingData} setJobQueue={setJobQueue} />
       <PullOutComponent devices={devices} setDevices={setDevices} isOpen={isOpen} />
@@ -59,6 +61,8 @@ function App() {
         jobQueue={jobQueue}
         prices={pricingData}
         setJobQueue={setJobQueue}
+        pricesArr={prices}
+        setPricesArr={setPrices}
       />
     </div>
   );

@@ -15,11 +15,13 @@ interface IGreenEnergyWidget {
     // setTotalCost: React.Dispatch<React.SetStateAction<number>>;
     jobQueue: QueuedJob[];
     prices: PricingData[];
+    pricesArr: number[];
+    setPricesArr: React.Dispatch<React.SetStateAction<number[]>>;
     setJobQueue: React.Dispatch<React.SetStateAction<QueuedJob[]>>;
 
 }
 
-export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue, prices, setJobQueue}: IGreenEnergyWidget) => {
+export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue, prices, setJobQueue, pricesArr, setPricesArr}: IGreenEnergyWidget) => {
     const [hourlyData, setHourlyData] = useState<Hour[]>([]);
     const isGeneratingArray: boolean[] = [];
     const [totalGreenHours, setTotalGreenHours] = useState<number>(0);
@@ -127,6 +129,9 @@ export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue,
                     <PlayButton 
                         currentSimTime={currentSimTime}
                         setCurrentSimTime={setCurrentSimTime} 
+                        pricesArr={pricesArr}
+                        setPricesArr={setPricesArr}
+                        prices={prices}
                     />
                 </>
             ) : (

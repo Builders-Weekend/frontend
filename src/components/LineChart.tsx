@@ -26,15 +26,17 @@ interface ILineChart {
   prices: PricingData[];
   currentSimTime: number;
   setCurrentSimTime: React.Dispatch<React.SetStateAction<number>>;
+  pricesArr: number[];
 }
 
 export default function LineChart({
   prices,
   currentSimTime,
   setCurrentSimTime,
+  pricesArr,
 }: ILineChart) {
   //STATE
-  const priceArr: number[] = prices.map((price) => price.amount);
+  // const priceArr: number[] = prices.map((price) => price.amount);
   const timeLabels: string[] = prices.map((price) => {
     return new Date(price.valid_from).toLocaleTimeString("en-US", {
       hour: "numeric",
@@ -47,7 +49,7 @@ export default function LineChart({
     datasets: [
       {
         label: "Energy Costs",
-        data: priceArr,
+        data: pricesArr,
         backgroundColor: "green",
         borderColor: "black",
         pointBorderColor: "black",
