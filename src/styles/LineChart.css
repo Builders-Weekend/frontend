@@ -1,4 +1,9 @@
-.line-chart-container {
-  width: 600px;
-  height: 400px;
+/* .line-chart-container {
+  width: 100vw;
+  height: 60vh;
+} */
+
+#line-chart {
+  height: 40vh;
+  width: 100vw;
 }
