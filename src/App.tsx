@@ -1,28 +1,23 @@
-
 import LineChart from "./components/LineChart";
 import Navbar from "./components/Navbar";
-import JobQueue  from "./components/JobQueue";
-import AddDeviceModal from "./components/AddDeviceModal";
+import JobQueue from "./components/JobQueue";
 import { useEffect, useState } from "react";
 import { Device, PricingData } from "./utils/types";
 import axios from "axios";
 import "./styles/App.css";
+import TogglePullOutComponent from "./components/TogglePullOutComponent";
+import PullOutComponent from "./components/PullOutComponent";
 
 function App() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [devices, setDevices] = useState<Device[]>([]);
-  const [modalIsVisible, setModalIsVisible] = useState<boolean>(false);
   const [pricingData, setPricingData] = useState<PricingData[]>([]);
 
-  
   useEffect(() => {
     fetchDeviceData();
     fetchPricingData();
   }, []);
-  
-  function handleModalOpen() {
-    setModalIsVisible(true);
-  }
-  
+
   async function fetchDeviceData() {
     try {
       const response = await axios.get("http://localhost:4000/api/devices");
@@ -44,15 +39,9 @@ function App() {
     <div className="app-container">
       <Navbar />
       <LineChart />
-      <AddDeviceModal
-        modalIsVisible={modalIsVisible}
-        setModalIsVisible={setModalIsVisible}
-      />
-      <JobQueue 
-        devices={devices}
-        prices={pricingData}
-      />
-      <button onClick={handleModalOpen}>Add Device</button>
+      <JobQueue devices={devices} prices={pricingData} />
+      <PullOutComponent devices={devices} setDevices={setDevices} isOpen={isOpen} />
+      <TogglePullOutComponent setIsOpen={setIsOpen} isOpen={isOpen} />
     </div>
   );
 }

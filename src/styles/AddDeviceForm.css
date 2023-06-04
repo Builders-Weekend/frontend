@@ -1,0 +1,37 @@
+.form {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.text-input,
+.number-input {
+  height: 32px;
+  box-sizing: border-box;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.submit-button {
+  margin-top: 8px;
+  background-color: #bdf1ff;
+  transition: background-color 0.2s;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.submit-button:hover {
+  background-color: #5ee9f3;
+}
