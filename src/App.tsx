@@ -17,9 +17,7 @@ function App() {
   const [jobQueue, setJobQueue] = useState<QueuedJob[]>([]);
   
   const [currentSimTime, setCurrentSimTime] = useState<number>(0);
-  const [totalGreenHours, setTotalGreenHours] = useState<number>(0);
-  const [totalNonGreenHours, setTotalNonGreenHours] = useState<number>(0);
-  const [totalCost, setTotalCost] = useState<number>(0);
+
 
   useEffect(() => {
     fetchDeviceData();
@@ -57,12 +55,8 @@ function App() {
       <GreenEnergyWidget
         currentSimTime={currentSimTime}
         setCurrentSimTime={setCurrentSimTime}
-        totalGreenHours={totalGreenHours}
-        setTotalGreenHours={setTotalGreenHours}
-        totalNonGreenHours={totalNonGreenHours}
-        setTotalNonGreenHours={setTotalNonGreenHours}
-        totalCost={totalCost}
-        setTotalCost={setTotalCost}
+        jobQueue={jobQueue}
+        prices={pricingData}
       />
     </div>
   );
