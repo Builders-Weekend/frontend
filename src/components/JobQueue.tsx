@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Device, QueuedJob, PricingData } from "../utils/types";
 import "../styles/JobQueue.css";
-import { start } from 'repl';
 
 interface IJobQueue {
   devices: Device[]
