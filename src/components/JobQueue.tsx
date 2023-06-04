@@ -74,10 +74,12 @@ export default function JobQueue({
       return unixTimestamp === startTime;
     });
     const pricingArray = newPrices.slice(indexOfFirstIncrement, indexOfFirstIncrement + halfHourIncrements);
+    console.log("HALF HOUR INCREMENTS", halfHourIncrements);
     let cost = 0;
 
     for (let item of pricingArray) {
       cost += item.amount * (device.consumptionPerHour / 2);
+      console.log("COST", item.amount);
     };
     return cost;
   };

@@ -57,6 +57,7 @@ function App() {
         setCurrentSimTime={setCurrentSimTime}
         jobQueue={jobQueue}
         prices={pricingData}
+        setJobQueue={setJobQueue}
       />
     </div>
   );

@@ -15,10 +15,11 @@ interface IGreenEnergyWidget {
     // setTotalCost: React.Dispatch<React.SetStateAction<number>>;
     jobQueue: QueuedJob[];
     prices: PricingData[];
+    setJobQueue: React.Dispatch<React.SetStateAction<QueuedJob[]>>;
 
 }
 
-export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue, prices}: IGreenEnergyWidget) => {
+export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue, prices, setJobQueue}: IGreenEnergyWidget) => {
     const [hourlyData, setHourlyData] = useState<Hour[]>([]);
     const isGeneratingArray: boolean[] = [];
     const [totalGreenHours, setTotalGreenHours] = useState<number>(0);
@@ -42,7 +43,8 @@ export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue,
         console.log("JOBS LIST", currentPriceTime);
         if (formatTime(currentPriceTime) === formatTime(jobsList[0].start)) {
             setTotalCost((totalCost) => totalCost + jobsList[0].cost);
-            jobsList.unshift();
+            const newJobList = jobsList.slice(1);
+            setJobQueue(newJobList);
             const currentWeatherIndex = Math.floor(currentSimTime % 2);
             if (isRenewable(hourlyData[currentWeatherIndex])) {
                 setTotalGreenHours((totalGreenHours) => totalGreenHours + 1);
@@ -106,7 +108,7 @@ export const GreenEnergyWidget = ({ currentSimTime, setCurrentSimTime, jobQueue,
     }, [hourlyData]);
 
     useEffect(() => {
-        if (currentSimTime && jobQueue && prices) {
+        if (currentSimTime && jobQueue.length > 0 && prices) {
             jobTimeCheck(jobQueue, currentSimTime, prices);
         }
     }, [currentSimTime]);
