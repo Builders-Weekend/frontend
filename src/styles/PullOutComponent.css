@@ -16,7 +16,6 @@
 }
 
 .content {
-  font-family: Arial, Helvetica, sans-serif;
   color: #fbfbfc;
   padding: 16px;
   display: flex;
@@ -25,4 +24,23 @@
 
 .pullout.open {
   left: 0;
+}
+
+/* For track */
+.pullout::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.pullout::-webkit-scrollbar-track {
+  background-color: #100030; /* Set the background color of the track */
+}
+
+/* For handle */
+.pullout::-webkit-scrollbar-thumb {
+  background-color: #fbfbfc; /* Set the color of the scrollbar handle */
+  border-radius: 4px; /* Add a border radius to the handle */
+}
+
+.pullout::-webkit-scrollbar-thumb:hover {
+  background-color: #c43fcf; /* Set the color of the scrollbar handle on hover */
 }
