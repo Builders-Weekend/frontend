@@ -133,7 +133,7 @@ export default function JobQueue({
           <div className='grid-item' style={{ gridRow: row }}>{job.start}</div>
           <div className='grid-item' style={{ gridRow: row }}>{job.end}</div>
           <div className='grid-item' style={{ gridRow: row }}>{job.cost}</div>
-          <div className='grid-item' style={{ gridRow: row }}>{job.device.currentChargeLevel ? job.device.currentChargeLevel : "-"}</div>
+          <div className='grid-item' style={{ gridRow: row }}>{job.device.currentChargeVal ? job.device.currentChargeVal : "-"}</div>
         </div>
         )
       })}
