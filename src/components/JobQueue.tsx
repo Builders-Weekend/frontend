@@ -40,9 +40,11 @@ export default function JobQueue({
       alert('Please select a device, start time, and end time.');
       return;
     }
-
-    const startTimeTimeStamp = new Date(selectedStartTime).getTime();
-    const endTimeTimeStamp = new Date(selectedEndTime).getTime();
+    // console.log("SELECTED START TIME",  typeof selectedStartTime)
+    const startTimeTimeStamp = formatTime(selectedStartTime);
+    const endTimeTimeStamp = formatTime(selectedEndTime);
+    // console.log(startTimeTimeStamp, endTimeTimeStamp)
+    // console.log(typeof startTimeTimeStamp, typeof endTimeTimeStamp)
     const halfHourIncrements = findHalfHourIncrements(startTimeTimeStamp, endTimeTimeStamp);
   
   
@@ -52,14 +54,16 @@ export default function JobQueue({
       end: endTimeTimeStamp,
       cost: calcCost(selectedDevice, prices, halfHourIncrements, startTimeTimeStamp),
     };
-  
-    setCurrentQueue((currentQueue) => [...currentQueue, newJob]);
-  
+    const newQueue = [...currentQueue, newJob];
+    // console.log("new queue", newQueue);
+    setCurrentQueue(newQueue);
+    // console.log("added new queue", currentQueue);
     setAddJob(!addJob);
   };
 
   const findHalfHourIncrements = (startTime: number, endTime: number) => {
     let hours = (endTime - startTime) / 3600;
+    // console.log("found increment")
     return hours * 2;
   };
 
@@ -71,21 +75,13 @@ export default function JobQueue({
     for (let item of pricingArray) {
       cost += item.price * (device.consumption / 2);
     };
-
+     console.log("calculated cost", cost);
     return cost;
   };
 
-  //for cost we need to take a slice of the prices array, where we work out how many 30 min intervals there are in the hours difference, we then take that number
-  // of indexes from the prices array and then use those prices for the cost calculation.
-
-  // const handleAddJobToQueue = () => {
-  //   // need something to add the values from drop down to the queue, along with calculate the price and add a - if no battery
-  //   // this function also needs to trigger the boolean above to stop rendering the add job stuff and only render the button to toggle it
-  // }
-
   type IsoDateString = string;
 
-  function extractTime(isoString: IsoDateString): string {
+  function extractTimeFromString(isoString: IsoDateString): string {
     const date = new Date(isoString);
     const time = date.toLocaleTimeString('en', {
       timeStyle: 'short',
@@ -96,12 +92,33 @@ export default function JobQueue({
     return time;
   }
 
-  //need a function to create a new job from the inputs
+  const convertTimeFromUnixToString = (time: number) => {
+    const dateObj: Date = new Date(time * 1000);
+
+    const hours: number = dateObj.getHours();
+    const minutes: number = dateObj.getMinutes();
+
+    const formattedTime: string = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    return formattedTime;
+  };
+
+  const formatTime = (time: string) => {
+    const timestampStr: string = time;
+  const currentDate: Date = new Date();
+  const currentDateString: string = currentDate.toISOString().slice(0, 10);
+  const timestampWithDate: string = `${currentDateString}T${timestampStr}:00`;
+  const datetimeObj: Date = new Date(timestampWithDate);
+
+  const unixTimestamp: number = Math.floor(datetimeObj.getTime() / 1000);
+  return unixTimestamp;
+  };
+
 
   return (
     <>
       <div>JobQueue</div>
       {currentQueue.map((job: QueuedJob) => {
+        return (
         <div key={job.device.name}>
           <div>{job.device.name}</div>
           <div>{job.start}</div>
@@ -109,46 +126,45 @@ export default function JobQueue({
           <div>{job.cost}</div>
           <div>{job.device.chargeLevel ? job.device.chargeLevel : "-"}</div>
         </div>
+        )
       })}
       {addJob ? 
-        <form>
+        (<form>
           <label>Choose a device</label>
           <select onChange={handleDeviceChange}>
-            <div>
                 {devices.map((device: Device) => {
                   return(
                     <option>{device.name}</option>
                   )
                 })}
-            </div>
           </select>
           <label>Start Time</label>
           <select onChange={handleStartTimeChange}>
-            <div>
               {prices.map((price: PricingData) => {
                 return (
                 <option>
-                  {extractTime(price.valid_from)}
+                  {extractTimeFromString(price.valid_from)}
                 </option>
                 )
               })}
-            </div>
           </select>
+          <label>End Time</label>
           <select onChange={handleEndTimeChange}>
-            <div>
               {prices.map((price: PricingData) => {
                 return (
                 <option>
-                  {extractTime(price.valid_to)}
+                  {extractTimeFromString(price.valid_to)}
                 </option>
                 )
               })}
-            </div>
           </select>
-          <button onClick={handleAddJobToQueue}> Add Job</button>
-        </form>
+          <button onClick={handleAddJobToQueue} type="submit"> Add Job</button>
+        </form>)
       : 
-        <button onClick={handleAddJob}>Add Device to Queue</button>
+        (<div>
+          <button onClick={handleAddJob}>Add Device to Queue</button>
+        </div>
+        )
       }
     </>
   )
