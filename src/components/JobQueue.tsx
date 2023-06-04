@@ -186,6 +186,7 @@ export default function JobQueue({ devices, prices }: IJobQueue) {
             </div>
           );
         })}
+        { addJob ? (
         <div className="queue-form-container" style={{ gridColumn: "1 / span 5" }}>
           <div className="grid-item">
             <label>Choose a device</label>
@@ -229,20 +230,14 @@ export default function JobQueue({ devices, prices }: IJobQueue) {
             </button>
           </div>
         </div>
-      </div>
-      {addJob ? (
-        <div className="queue-button-container">
-          <button className="queue-submit-button" onClick={handleAddJob}>
-            Add Device to Queue
-          </button>
-        </div>
-      ) : (
+        ) : (
         <div className="queue-button-container">
           <button className="queue-submit-button" onClick={handleAddJob}>
             Add Device to Queue
           </button>
         </div>
       )}
+      </div>
     </>
   );
 }
