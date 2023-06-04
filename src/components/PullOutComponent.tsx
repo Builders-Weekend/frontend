@@ -7,14 +7,15 @@ import { Device } from "../utils/types";
 interface IPullOutComponentProps {
   isOpen: boolean;
   devices: Device[];
+  setDevices: React.Dispatch<React.SetStateAction<Device[]>>;
 }
 
-function PullOutComponent({ isOpen, devices }: IPullOutComponentProps) {
+function PullOutComponent({ isOpen, devices, setDevices }: IPullOutComponentProps) {
   return (
     <div className="container">
       <div className={`pullout ${isOpen ? "open" : ""}`}>
         <div className="content">
-          <AddDeviceForm />
+          <AddDeviceForm devices={devices} setDevices={setDevices} />
           <Devices devices={devices} />
         </div>
       </div>

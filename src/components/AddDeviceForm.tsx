@@ -1,8 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import "../styles/AddDeviceForm.css";
+import { Device } from "../utils/types";
 
-function AddDeviceForm() {
+interface IAddDeviceFormProps {
+  devices: Device[];
+  setDevices: React.Dispatch<React.SetStateAction<Device[]>>;
+}
+
+function AddDeviceForm({ devices, setDevices }: IAddDeviceFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     consumption: 0,
@@ -17,12 +23,15 @@ function AddDeviceForm() {
       await axios.post("http://localhost:4000/api/devices", formData);
       console.log("Form submitted!");
 
+      setDevices([...devices, formData]);
+
       setFormData({
         name: "",
         consumption: 0,
         isBattery: false,
         chargeLevel: 0,
       });
+
     } catch (error) {
       console.log(error);
       throw error;
