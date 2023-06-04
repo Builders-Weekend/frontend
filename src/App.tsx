@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Device, PricingData } from "./utils/types";
 import axios from "axios";
 import "./styles/App.css";
+import "./styles/fonts.css";
 import TogglePullOutComponent from "./components/TogglePullOutComponent";
 import PullOutComponent from "./components/PullOutComponent";
 
