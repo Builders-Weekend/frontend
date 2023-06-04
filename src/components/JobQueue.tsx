@@ -20,6 +20,7 @@ export default function JobQueue({
 
   const handleAddJobToQueue = () => {
     // need something to add the values from drop down to the queue, along with calculate the price and add a - if no battery
+    // this function also needs to trigger the boolean above to stop rendering the add job stuff and only render the button to toggle it
   }
 
   type IsoDateString = string;
