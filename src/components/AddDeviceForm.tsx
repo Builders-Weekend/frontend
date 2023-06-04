@@ -42,7 +42,7 @@ function AddDeviceForm({ devices, setDevices }: IAddDeviceFormProps) {
 
   return (
     <div className="container">
-      <div className="form-container">
+      <div className="add-device__form-container">
         <div className="form-content">
           <h1>Add a New Device</h1>
           <form onSubmit={handleSubmit} id="add-device-form" className="form">
