@@ -1,8 +1,10 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
 import { Device } from "../utils/types";
 
-export const Devices = (devices: Device[]) => {
+interface IDevicesProps {
+    devices: Device[];
+}
+
+export const Devices = ({ devices }: IDevicesProps) => {
     return (
         <div>
             <h1>Your Devices</h1>

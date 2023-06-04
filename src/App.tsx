@@ -40,7 +40,7 @@ function App() {
       <Navbar />
       <LineChart />
       <JobQueue devices={devices} prices={pricingData} />
-      <PullOutComponent isOpen={isOpen} />
+      <PullOutComponent devices={devices} isOpen={isOpen} />
       <TogglePullOutComponent setIsOpen={setIsOpen} isOpen={isOpen} />
     </div>
   );
