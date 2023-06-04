@@ -2,7 +2,7 @@ type Device = {
     name: string;
     consumptionPerHour: number;
     isBattery?: boolean;
-    currentChargeLevel?: number;
+    currentChargeVal?: number;
     maxChargeVal?: number;
 }
 
