@@ -46,14 +46,12 @@ function App() {
   return (
     <div className="app-container">
       <Navbar />
-      <LineChart {line}/>
-      <JobQueue devices={devices} prices={pricingData} setJobQueue={setJobQueue} />
       <LineChart 
-        prices={pricingData}
         currentSimTime={currentSimTime}
         setCurrentSimTime={setCurrentSimTime}
+        prices={pricingData}
       />
-      <JobQueue devices={devices} prices={pricingData} />
+      <JobQueue devices={devices} prices={pricingData} setJobQueue={setJobQueue} />
       <PullOutComponent devices={devices} setDevices={setDevices} isOpen={isOpen} />
       <TogglePullOutComponent setIsOpen={setIsOpen} isOpen={isOpen} />
       <GreenEnergyWidget
