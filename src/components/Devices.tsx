@@ -2,23 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Device } from "../utils/types";
 
-export const Devices = () => {
-    const [devices, setDevices] = useState<Device[]>([]);
-
-    const fetchDeviceData = async () => {
-        try {
-            const response = await axios.get("http://localhost:4000/api/devices");
-            setDevices(response.data);
-            console.log(response.data)
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect(() => {
-        fetchDeviceData();
-    }, []);
-
+export const Devices = (devices: Device[]) => {
     return (
         <div>
             <h1>Your Devices</h1>
