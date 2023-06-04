@@ -18,8 +18,6 @@ export default function JobQueue({
   const [selectedStartTime, setSelectedStartTime] = useState<string>('');
   const [selectedEndTime, setSelectedEndTime] = useState<string>('');
 
-  console.log("PRICES", prices[0]);
-
   const handleDeviceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const device = devices.find((d) => d.name === event.target.value);
     setSelectedDevice(device || null);
@@ -45,8 +43,6 @@ export default function JobQueue({
     // console.log("SELECTED START TIME",  typeof selectedStartTime)
     const startTimeTimeStamp = formatTime(selectedStartTime);
     const endTimeTimeStamp = formatTime(selectedEndTime);
-    console.log(startTimeTimeStamp, endTimeTimeStamp)
-    console.log(typeof startTimeTimeStamp, typeof endTimeTimeStamp)
     const halfHourIncrements = findHalfHourIncrements(startTimeTimeStamp, endTimeTimeStamp);
   
   
@@ -57,9 +53,7 @@ export default function JobQueue({
       cost: calcCost(selectedDevice, prices, halfHourIncrements, startTimeTimeStamp),
     };
     const newQueue = [...currentQueue, newJob];
-    console.log("new queue", newQueue);
     setCurrentQueue(newQueue);
-    // console.log("added new queue", currentQueue);
     setAddJob(!addJob);
   };
 
@@ -70,11 +64,6 @@ export default function JobQueue({
 
   const calcCost = (device: Device, prices: PricingData[], halfHourIncrements: number, startTime: number) => {
     const newPrices = prices;
-
-    newPrices.forEach((price: PricingData) => {
-      const dateObj: Date = new Date(price.valid_from);
-      const unixTimestamp: number = Math.floor(dateObj.getTime() / 1000);
-    });
 
     const indexOfFirstIncrement: number = newPrices.findIndex((price: any) => {
       const dateObj: Date = new Date(price.valid_from);
