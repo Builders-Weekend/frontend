@@ -32,7 +32,7 @@ type Hour = {
 }
 
 type PricingData = {
-    price: number,
+    amount: number,
     valid_from: string,
     valid_to: string
 }

@@ -43,7 +43,9 @@ function App() {
   return (
     <div className="app-container">
       <Navbar />
-      <LineChart />
+      <LineChart 
+        prices={pricingData}
+      />
       <AddDeviceModal
         modalIsVisible={modalIsVisible}
         setModalIsVisible={setModalIsVisible}
