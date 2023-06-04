@@ -18,6 +18,8 @@ export default function JobQueue({
   const [selectedStartTime, setSelectedStartTime] = useState<string>('');
   const [selectedEndTime, setSelectedEndTime] = useState<string>('');
 
+  console.log("PRICES", prices[0]);
+
   const handleDeviceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const device = devices.find((d) => d.name === event.target.value);
     setSelectedDevice(device || null);
@@ -43,19 +45,19 @@ export default function JobQueue({
     // console.log("SELECTED START TIME",  typeof selectedStartTime)
     const startTimeTimeStamp = formatTime(selectedStartTime);
     const endTimeTimeStamp = formatTime(selectedEndTime);
-    // console.log(startTimeTimeStamp, endTimeTimeStamp)
-    // console.log(typeof startTimeTimeStamp, typeof endTimeTimeStamp)
+    console.log(startTimeTimeStamp, endTimeTimeStamp)
+    console.log(typeof startTimeTimeStamp, typeof endTimeTimeStamp)
     const halfHourIncrements = findHalfHourIncrements(startTimeTimeStamp, endTimeTimeStamp);
   
   
     const newJob: QueuedJob = {
       device: selectedDevice,
-      start: startTimeTimeStamp,
-      end: endTimeTimeStamp,
+      start: convertTimeFromUnixToString(startTimeTimeStamp),
+      end: convertTimeFromUnixToString(endTimeTimeStamp),
       cost: calcCost(selectedDevice, prices, halfHourIncrements, startTimeTimeStamp),
     };
     const newQueue = [...currentQueue, newJob];
-    // console.log("new queue", newQueue);
+    console.log("new queue", newQueue);
     setCurrentQueue(newQueue);
     // console.log("added new queue", currentQueue);
     setAddJob(!addJob);
@@ -63,19 +65,29 @@ export default function JobQueue({
 
   const findHalfHourIncrements = (startTime: number, endTime: number) => {
     let hours = (endTime - startTime) / 3600;
-    // console.log("found increment")
     return hours * 2;
   };
 
   const calcCost = (device: Device, prices: PricingData[], halfHourIncrements: number, startTime: number) => {
-    const indexOfFirstIncrement: number = prices.findIndex((price: any) => new Date(price.valid_from).getTime() === startTime);
-    const pricingArray = prices.slice(indexOfFirstIncrement, indexOfFirstIncrement + (halfHourIncrements - 1));
+    const newPrices = prices;
+
+    newPrices.forEach((price: PricingData) => {
+      const dateObj: Date = new Date(price.valid_from);
+      const unixTimestamp: number = Math.floor(dateObj.getTime() / 1000);
+    });
+
+    const indexOfFirstIncrement: number = newPrices.findIndex((price: any) => {
+      const dateObj: Date = new Date(price.valid_from);
+      const unixTimestamp: number = Math.floor(dateObj.getTime() / 1000);
+
+      return unixTimestamp === startTime;
+    });
+    const pricingArray = newPrices.slice(indexOfFirstIncrement, indexOfFirstIncrement + halfHourIncrements);
     let cost = 0;
 
     for (let item of pricingArray) {
-      cost += item.price * (device.consumption / 2);
+      cost += item.amount * (device.consumption / 2);
     };
-     console.log("calculated cost", cost);
     return cost;
   };
 
@@ -104,7 +116,7 @@ export default function JobQueue({
 
   const formatTime = (time: string) => {
     const timestampStr: string = time;
-  const currentDate: Date = new Date();
+  const currentDate: Date = new Date("2023-06-02");
   const currentDateString: string = currentDate.toISOString().slice(0, 10);
   const timestampWithDate: string = `${currentDateString}T${timestampStr}:00`;
   const datetimeObj: Date = new Date(timestampWithDate);

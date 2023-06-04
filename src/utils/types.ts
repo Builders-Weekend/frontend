@@ -7,8 +7,8 @@ type Device = {
 
 type QueuedJob = {
     device: Device;
-    start: number;
-    end: number;
+    start: string;
+    end: string;
     cost: number;
 }
 
@@ -32,7 +32,7 @@ type Hour = {
 }
 
 type PricingData = {
-    price: number,
+    amount: number,
     valid_from: string,
     valid_to: string
 }
