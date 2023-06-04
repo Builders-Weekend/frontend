@@ -11,9 +11,10 @@ interface IAddDeviceFormProps {
 function AddDeviceForm({ devices, setDevices }: IAddDeviceFormProps) {
   const [formData, setFormData] = useState({
     name: "",
-    consumption: 0,
+    consumptionPerHour: 0,
     isBattery: false,
-    chargeLevel: 0,
+    currentChargeVal: 0,
+    maxChargeVal:0
   });
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -27,9 +28,10 @@ function AddDeviceForm({ devices, setDevices }: IAddDeviceFormProps) {
 
       setFormData({
         name: "",
-        consumption: 0,
+        consumptionPerHour: 0,
         isBattery: false,
-        chargeLevel: 0,
+        currentChargeVal: 0,
+        maxChargeVal:0,
       });
 
     } catch (error) {
@@ -64,11 +66,11 @@ function AddDeviceForm({ devices, setDevices }: IAddDeviceFormProps) {
               inputMode="numeric"
               className="number-input"
               id="input-consumption"
-              value={formData.consumption}
+              value={formData.consumptionPerHour}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  consumption: e.target.valueAsNumber,
+                  consumptionPerHour: e.target.valueAsNumber,
                 })
               }
             />
@@ -82,21 +84,21 @@ function AddDeviceForm({ devices, setDevices }: IAddDeviceFormProps) {
                   setFormData({ ...formData, isBattery: e.target.checked })
                 }
               />
-              <label htmlFor="input-battery">Battery Powered</label>
+              <label htmlFor="input-battery">Battery?</label>
             </div>
 
-            <label htmlFor="input-charge-level">Charge Level (%)</label>
+            <label htmlFor="input-charge-level">Max Charge Value (kw)</label>
             <input
               required
               type="number"
               inputMode="numeric"
               className="number-input"
               id="input-charge-level"
-              value={formData.chargeLevel}
+              value={formData.maxChargeVal}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  chargeLevel: e.target.valueAsNumber,
+                  maxChargeVal: e.target.valueAsNumber,
                 })
               }
             />
