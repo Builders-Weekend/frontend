@@ -24,10 +24,12 @@ ChartJS.register(
 
 
 interface ILineChart {
-  prices: PricingData[]
+  prices: PricingData[];
+  currentSimTime: number;
+  setCurrentSimTime: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function LineChart({prices}:ILineChart ){
+export default function LineChart({prices, currentSimTime, setCurrentSimTime}:ILineChart ){
   const priceArr: number[] = prices.map((price) => price.amount);
   const timeLabels: string[] = prices.map((price) => {
     return new Date(price.valid_from).toLocaleTimeString('en-US', {
