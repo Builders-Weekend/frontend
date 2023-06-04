@@ -21,7 +21,7 @@ export const Devices = () => {
 
     return (
         <div>
-            <h1>Devices</h1>
+            <h1>Your Devices</h1>
             {devices.map((device) => (
                 <div className="device-card" key={device.name}>
                     <h2>{device.name}</h2>

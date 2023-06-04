@@ -1,7 +1,7 @@
 .container {
   position: relative;
-  height: 100vh;
 }
+
 
 .pullout {
   position: fixed;
@@ -11,6 +11,8 @@
   width: 400px;
   background-color: #100030;
   z-index: 999;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 .content {
