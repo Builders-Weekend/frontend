@@ -231,7 +231,7 @@ export default function JobQueue({ devices, prices }: IJobQueue) {
           </div>
         </div>
         ) : (
-        <div className="queue-button-container">
+          <div className="queue-button-container">
           <button className="queue-submit-button" onClick={handleAddJob}>
             Add Device to Queue
           </button>
