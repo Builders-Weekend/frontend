@@ -40,7 +40,6 @@ export default function JobQueue({
       alert('Please select a device, start time, and end time.');
       return;
     }
-    // console.log("SELECTED START TIME",  typeof selectedStartTime)
     const startTimeTimeStamp = formatTime(selectedStartTime);
     const endTimeTimeStamp = formatTime(selectedEndTime);
     const halfHourIncrements = findHalfHourIncrements(startTimeTimeStamp, endTimeTimeStamp);
@@ -75,7 +74,7 @@ export default function JobQueue({
     let cost = 0;
 
     for (let item of pricingArray) {
-      cost += item.amount * (device.consumption / 2);
+      cost += item.amount * (device.consumptionPerHour / 2);
     };
     return cost;
   };
@@ -117,18 +116,25 @@ export default function JobQueue({
 
   return (
     <>
-      <div>JobQueue</div>
-      {currentQueue.map((job: QueuedJob) => {
+    <div className='grid-container'>
+      <div className='grid-header' style={{ gridColumn: 1}}>Device</div>
+      <div className='grid-header' style={{ gridColumn: 2}}>Start Time</div>
+      <div className='grid-header' style={{ gridColumn: 3}}>End Time</div>
+      <div className='grid-header' style={{ gridColumn: 4}}>Job Cost</div>
+      <div className='grid-header' style={{ gridColumn: 5}}>Device Charge Level</div>
+      {currentQueue.map((job: QueuedJob, index: number) => {
+        const row = index + 2
         return (
         <div key={job.device.name}>
-          <div>{job.device.name}</div>
-          <div>{job.start}</div>
-          <div>{job.end}</div>
-          <div>{job.cost}</div>
-          <div>{job.device.chargeLevel ? job.device.chargeLevel : "-"}</div>
+          <div className='grid-item' style={{ gridRow: row }}>{job.device.name}</div>
+          <div className='grid-item' style={{ gridRow: row }}>{job.start}</div>
+          <div className='grid-item' style={{ gridRow: row }}>{job.end}</div>
+          <div className='grid-item' style={{ gridRow: row }}>{job.cost}</div>
+          <div className='grid-item' style={{ gridRow: row }}>{job.device.currentChargeLevel ? job.device.currentChargeLevel : "-"}</div>
         </div>
         )
       })}
+    </div>
       {addJob ? 
         (<form>
           <label>Choose a device</label>

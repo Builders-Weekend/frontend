@@ -9,7 +9,7 @@ export const Devices = (devices: Device[]) => {
             {devices.map((device) => (
                 <div className="device-card" key={device.name}>
                     <h2>{device.name}</h2>
-                    <p>Consumption: {device.consumption}</p>
+                    <p>Consumption: {device.consumptionPerHour}</p>
                 </div>
             ))}    
         </div>

@@ -3,3 +3,40 @@
   height: 40vh;
   background-color: orange;
 }
+
+/* Grid.css */
+/* Grid.css */
+/* .grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  align-items: center;
+  grid-auto-rows: minmax(30px, auto);
+}
+
+.grid-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.grid-item {
+  text-align: center;
+  padding: 0.5rem;
+} */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  align-items: center;
+  grid-auto-rows: minmax(30px, auto);
+}
+
+.grid-header, .grid-item {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+
+
