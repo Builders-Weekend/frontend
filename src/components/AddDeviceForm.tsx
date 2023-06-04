@@ -73,7 +73,7 @@ function AddDeviceForm() {
                   setFormData({ ...formData, isBattery: e.target.checked })
                 }
               />
-              <label htmlFor="input-battery">Battery</label>
+              <label htmlFor="input-battery">Battery Powered</label>
             </div>
 
             <label htmlFor="input-charge-level">Charge Level (%)</label>

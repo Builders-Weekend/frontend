@@ -1,26 +1,15 @@
-.container {
-  width: 100%;
-}
-
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-content {
-  width: 90%;
-}
-
 .form {
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex-grow: 1;
 }
 
 .text-input,
 .number-input {
-  height: 30px;
+  height: 32px;
+  box-sizing: border-box;
 }
 
 .checkbox-container {
@@ -32,6 +21,7 @@
 .submit-button {
   margin-top: 8px;
   background-color: #bdf1ff;
+  transition: background-color 0.2s;
   width: 120px;
   height: 40px;
   border-radius: 8px;
@@ -40,4 +30,8 @@
   outline: none;
   font-size: 16px;
   font-weight: 600;
+}
+
+.submit-button:hover {
+  background-color: #5ee9f3;
 }

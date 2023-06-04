@@ -17,22 +17,25 @@
   border: none;
   cursor: pointer;
   outline: none;
-  transition: color 0.5s;
+  transition: color 0.2s;
 }
 
 .button svg {
   width: 24px;
   height: 24px;
+  color: #fbfbfc;
+}
+
+.button:hover {
+  color: #c43fcf;
 }
 
 .button.inactive {
-  color: #fbfbfc;
   transform: translateX(0);
   transition: transform 0.5s ease-in-out;
 }
 
 .button.active {
-  color: #c43fcf;
-  transform: translateX(30vw);
+  transform: translateX(400px);
   transition: transform 0.5s ease-in-out;
 }

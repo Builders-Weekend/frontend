@@ -1,5 +1,6 @@
 import React from "react";
 import AddDeviceForm from "./AddDeviceForm";
+import { Devices } from "./Devices";
 import "../styles/PullOutComponent.css";
 
 interface IPullOutComponentProps {
@@ -12,6 +13,7 @@ function PullOutComponent({ isOpen }: IPullOutComponentProps) {
       <div className={`pullout ${isOpen ? "open" : ""}`}>
         <div className="content">
           <AddDeviceForm />
+          <Devices />
         </div>
       </div>
     </div>
