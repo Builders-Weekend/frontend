@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -22,23 +22,26 @@ ChartJS.register(
   Tooltip
 );
 
-
 interface ILineChart {
   prices: PricingData[];
   currentSimTime: number;
   setCurrentSimTime: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function LineChart({prices, currentSimTime, setCurrentSimTime}:ILineChart ){
+export default function LineChart({
+  prices,
+  currentSimTime,
+  setCurrentSimTime,
+}: ILineChart) {
+  //STATE
   const priceArr: number[] = prices.map((price) => price.amount);
   const timeLabels: string[] = prices.map((price) => {
-    return new Date(price.valid_from).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true
-    })
+    return new Date(price.valid_from).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
   });
-
   const data: ChartData<"line", number[], unknown> = {
     labels: timeLabels,
     datasets: [
@@ -50,10 +53,9 @@ export default function LineChart({prices, currentSimTime, setCurrentSimTime}:IL
         pointBorderColor: "black",
         fill: true,
         tension: 0.4,
-      }
-    ]
+      },
+    ],
   };
-
   const options: ChartOptions<"line"> = {
     responsive: true,
     scales: {
@@ -72,11 +74,10 @@ export default function LineChart({prices, currentSimTime, setCurrentSimTime}:IL
       },
     },
   };
+
   return (
     <div className="line-chart-container">
       <Line id="line-chart" data={data} options={options} />
     </div>
   );
-};
-
-
+}
